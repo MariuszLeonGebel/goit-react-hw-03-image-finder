@@ -1,7 +1,7 @@
 import { useEffect } from "react";
 import PropTypes from 'prop-types';
 import { createPortal } from "react-dom";
-import {Overlay, ModalPar} from "./Modal.styled"
+import {Overlay, ModalParams} from "./Modal.styled"
 const modalRoot = document.querySelector('#modal-root');
 
 
@@ -14,25 +14,27 @@ export default function Modal({ largeImageURL, onModalClose}){
     }
   });
  
-  const handleOverlayclick = (e) => {
-   
-  if (e.target === e.currentTarget) {
-    onModalClose()
+  const handleOverlayclick = (e) => {   
+    if (e.target === e.currentTarget) {
+      onModalClose()
+    }
   }
-  }
+
   const handleEscKey = (e) => {
     if (e.code === "Escape") {
     onModalClose()
-  }
+    }
   }
 
-return (createPortal(   <Overlay onClick ={handleOverlayclick}>
-  <ModalPar >
-    <img src={largeImageURL} alt="" />
-  </ModalPar>
-</Overlay>, modalRoot))
+return (createPortal(   
+  <Overlay onClick ={handleOverlayclick}>
+    <ModalParams >
+      <img src={largeImageURL} alt="" />
+    </ModalParams>
+  </Overlay>, modalRoot))
      
 }
+
 Modal.propTypes = {
   largeImageURL: PropTypes.string,
   onModalClose: PropTypes.func.isRequired

@@ -13,7 +13,7 @@ const imgsearch = new pixabayAPI();
 export default function ImageGallery({searchQuery}) {
     
   const [searchResults, setSearchResults] = useState([]);
-  const [searchPoints, setSearchPoints] = useState(null);
+  const [searchedImages, setSearchedImages] = useState(null);
   const [status, setStatus] = useState('init');
   const [largeURL, setlargeURL] = useState('');
   const [errorMessage, setErrorMessage] = useState('');
@@ -22,7 +22,7 @@ export default function ImageGallery({searchQuery}) {
     if (searchQuery === "") {
       return
     };
-    console.log(searchQuery)
+    //console.log(searchQuery)
     setStatus('pending')
     imgsearch.resetPage();
     imgsearch.searchQuery = searchQuery;
@@ -30,7 +30,7 @@ export default function ImageGallery({searchQuery}) {
       .then(searchResults => {
         if (searchResults.hits.length > 0) {
           setSearchResults(searchResults.hits);
-          setSearchPoints(searchResults.total);
+          setSearchedImages(searchResults.total);
           setStatus('success');
         } else {
           setErrorMessage('Nothing found!');
@@ -38,73 +38,67 @@ export default function ImageGallery({searchQuery}) {
         }
       });
   }, [searchQuery]);
-    
 
   const handleImageClick = (value) => {
-      console.log(value)
-       setlargeURL(value);
-       setStatus('modal')
-    }
+    //console.log(value)
+      setlargeURL(value);
+      setStatus('modal')
+  }
 
-    const onModalClose = () => {
+  const onModalClose = () => {
+      setStatus('success')
+  }
+
+  const handleClick = (e) => {      
+    imgsearch.page = 1;
+    imgsearch.search()
+      .then(searchResults => {
+        setSearchResults((prev) => [...prev, ...searchResults.hits]);
         setStatus('success')
-    }
 
-    const handleClick = (e) => {
-            
-      imgsearch.page = 1;
-      imgsearch.search()
-        .then(searchResults => {
-          setSearchResults((prev) => [...prev, ...searchResults.hits]);
-          setStatus('success')
-
-          window.scrollTo({
-            top: document.documentElement.scrollHeight,
-            behavior: 'smooth',
-          })
+        window.scrollTo({
+          top: document.documentElement.scrollHeight,
+          behavior: 'smooth',
         })
-            .catch((er) => {
-              setStatus('error');
-              setErrorMessage(er)
-         });
-        
-    }
+      })
+      .catch((er) => {
+        setStatus('error');
+        setErrorMessage(er)
+      });    
+  }
 
-    if (status === 'init') {
-      return <h1 className="title">Hello! What are we looking for?</h1>;
-    }
-   if (status === 'pending') {
-     return (<Loader/>)
-   }
-    if (status === 'success') {
-
-  return (
-        <>
-          <GalleryImage>
-            {searchResults.map(el => (                  
-              < ImageGalleryItems key ={el.id} item={el} handleImageClick = {handleImageClick} />)                
-                
-            )}
-          </GalleryImage>
-         
-            {(searchPoints > 12) && <Button onClick={handleClick} />}              
-        </>
-        // 
-  );
+      if (status === 'init') {
+        return <h1 className="title">Hello! What are we looking for?</h1>;
       }
-     if (status === 'modal') {
-         return <Modal largeImageURL={largeURL} onModalClose = {onModalClose} />
-     }
-   if (status === 'error') {
-      
-      return <Notification
-        type='Error'
-        title='Error'
-        text={errorMessage}
-       
-      />
-    }
-  }           
+      if (status === 'pending') {
+      return (<Loader/>)
+      }
+      if (status === 'success') {
+
+        return (
+          <>
+            <GalleryImage>
+              {searchResults.map(el => (                  
+                < ImageGalleryItems key ={el.id} item={el} handleImageClick = {handleImageClick} />)                
+              )}
+            </GalleryImage>         
+            {(searchedImages > 12) && <Button onClick={handleClick} />}              
+          </>          
+        );
+      }
+
+      if (status === 'modal') {
+          return <Modal largeImageURL={largeURL} onModalClose = {onModalClose} />
+      }
+
+      if (status === 'error') {        
+        return <Notification
+          type='Error'
+          title='Error'
+          text={errorMessage}        
+        />
+      }
+}           
            
 ImageGallery.propTypes = {
   searchQuery: PropTypes.string

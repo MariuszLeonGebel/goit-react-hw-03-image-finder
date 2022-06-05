@@ -1,8 +1,7 @@
 import PropTypes from 'prop-types'
 import { useState } from 'react'
-import {Header, SearchForm, SearchFormButton, SearchFormSpan, SearchFormInput} from './Searchbar.styled'
+import {Header, SearchForm, SearchFormButton, SearchFormInput} from './Searchbar.styled'
  
-
 export default function Searchbar({onSubmit}) {
     
   const [searchInput, setSearchInput] = useState('')
@@ -11,12 +10,11 @@ export default function Searchbar({onSubmit}) {
       setSearchInput(e.target.value)
   };
 
-  const handleSubmit = (e) => {
-      
+  const handleSubmit = (e) => {      
       e.preventDefault()
       if (searchInput.trim() === "") {
-          alert('Input something!')
-          return              
+        alert('Input something!')
+        return              
       }
       onSubmit(searchInput);
       setSearchInput('');
@@ -27,8 +25,6 @@ export default function Searchbar({onSubmit}) {
     <SearchForm onSubmit={handleSubmit}>
     <SearchFormButton type="submit" >     
     <i className='fas fa-search search__icon'></i>
-      <SearchFormSpan>Search
-      </SearchFormSpan>
     </SearchFormButton>
 
     < SearchFormInput
@@ -41,8 +37,7 @@ export default function Searchbar({onSubmit}) {
     />
     </SearchForm>
     </Header>
-  )
-        
+  )        
 }
 
 Searchbar.propTypes = {

@@ -1,13 +1,13 @@
 {
   "files": {
-    "main.css": "/MariuszLeonGebel/goit-react-hw-03-image-finder.git/static/css/main.7acaea2f.css",
-    "main.js": "/MariuszLeonGebel/goit-react-hw-03-image-finder.git/static/js/main.07d3183d.js",
-    "index.html": "/MariuszLeonGebel/goit-react-hw-03-image-finder.git/index.html",
-    "main.7acaea2f.css.map": "/MariuszLeonGebel/goit-react-hw-03-image-finder.git/static/css/main.7acaea2f.css.map",
-    "main.07d3183d.js.map": "/MariuszLeonGebel/goit-react-hw-03-image-finder.git/static/js/main.07d3183d.js.map"
+    "main.css": "/goit-react-hw-03-image-finder/static/css/main.61469293.css",
+    "main.js": "/goit-react-hw-03-image-finder/static/js/main.a16d4e43.js",
+    "index.html": "/goit-react-hw-03-image-finder/index.html",
+    "main.61469293.css.map": "/goit-react-hw-03-image-finder/static/css/main.61469293.css.map",
+    "main.a16d4e43.js.map": "/goit-react-hw-03-image-finder/static/js/main.a16d4e43.js.map"
   },
   "entrypoints": [
-    "static/css/main.7acaea2f.css",
-    "static/js/main.07d3183d.js"
+    "static/css/main.61469293.css",
+    "static/js/main.a16d4e43.js"
   ]
 }
